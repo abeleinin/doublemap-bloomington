@@ -1,7 +1,8 @@
+import threading
 import pygame
 pygame.init()
 background = pygame.image.load("bloomington-map.png")
-screen = pygame.display.set_mode((700, 700))
+screen = pygame.display.set_mode((770, 697))
 pygame.display.set_caption('Double Map')
 screen.blit(background, (0, 0))
 clock = pygame.time.Clock()
@@ -26,5 +27,4 @@ while not False:
     pygame.display.update()
     screen.blit(background, (0, 0))
     clock.tick(60)
-
 
