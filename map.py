@@ -1,30 +1,25 @@
-import threading
 import pygame
+import threading
+import get_data
 pygame.init()
 background = pygame.image.load("bloomington-map.png")
 screen = pygame.display.set_mode((770, 697))
-pygame.display.set_caption('Double Map')
+pygame.display.set_caption('Bloomington DoubleMap in Python')
 screen.blit(background, (0, 0))
 clock = pygame.time.Clock()
 
-class Rect:
-    x = 0
-    y = 0
-
-square = pygame.Surface((20, 20))
-
 while not False:
-    screen.blit(square, (Rect.x, Rect.y))
+    # Check if user has tried exiting the application
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+            get_data.cancel = True
             exit()
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            posn = pygame.mouse.get_pos()
-            pygame.draw.rect(screen, (255, 0, 0), (posn[0], posn[1], 10, 10))
-    Rect.x += 1 
-    Rect.y += 1
+    # Update bus location from get_data updater function 
+    for bus in get_data.updater():
+        pygame.draw.rect(screen, (255, 0, 0), (bus.lon, bus.lat, 8, 8))
+
     pygame.display.update()
     screen.blit(background, (0, 0))
-    clock.tick(60)
+    clock.tick(0.3)
 
